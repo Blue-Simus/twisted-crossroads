@@ -1,4 +1,3 @@
-
 NOT_A_STATE = "not a state"
 
 STORY_SWITCH = {
@@ -50,8 +49,9 @@ STORY_SWITCH = {
     ["dark settlement save"] = {"dark settlement"}	
 }
 
-SAFEHOUSE_KEY = "save"
-ONE_TIME_KEY = "1t"
+SWITCH_CONDITIONS = {
+	["brunhilda safehouse met"] = false
+}
 
 MAIN_MENU_CHOICES = {"1) Начать.", "2) Продолжить.", "3) Выход."}
 MOVE_ON = {"1) Вперёд."}
@@ -61,3 +61,39 @@ SAFEHOUSE_CHOICES = {
         "2) [Статус]",
         "3) [Осмотр]",
         "4) [Назад]"}
+
+DIGITS = {
+    ["1"]=true, 
+    ["2"]=true, 
+    ["3"]=true, 
+    ["4"]=true, 
+    ["5"]=true, 
+    ["6"]=true, 
+    ["7"]=true, 
+    ["8"]=true, 
+    ["9"]=true, 
+    ["0"]=true}
+
+function one_time_state_check(current_state, key_pressed)
+	local next_state = STORY_SWITCH[current_state][tonumber(key_pressed)]
+	if current_state == "dark settlement"  
+		and key_pressed == "3"
+		and not SWITCH_CONDITIONS['brunhilda safehouse met'] 
+		then
+		next_state = "dark settlement save 1t 1"
+		SWITCH_CONDITIONS['brunhilda safehouse met'] = true
+	end
+	return next_state	
+end
+
+function get_new_state(current_state, key_pressed)
+	local next_state = current_state
+	local switch_res = STORY_SWITCH[current_state]
+    if not switch_res == nil 
+		and DIGITS[key_pressed] 
+		and #switch_res > tonumber(key_pressed)
+		then
+		next_state = one_time_state_check(current_state, key_pressed) 
+	end
+	return next_state
+end
