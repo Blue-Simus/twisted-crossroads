@@ -54,7 +54,7 @@ SAFEHOUSE_KEY = "save"
 ONE_TIME_KEY = "1t"
 
 MAIN_MENU_CHOICES = {"1) Начать.", "2) Продолжить.", "3) Выход."}
-MOVE_ON = ["1) Вперёд."]
+MOVE_ON = {"1) Вперёд."}
 SAFEHOUSE_CHOICES = {
 		"0) [Выйти в главное меню]",
         "1) [Сохранить]",
