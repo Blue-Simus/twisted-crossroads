@@ -2,8 +2,7 @@ NOT_A_STATE = "not a state"
 
 STORY_SWITCH = {
     ['intro'] = {"main menu"},
-    ["main menu"] = {"very beginning", NOT_A_STATE, "options"},
-    ['options'] = {"main menu"},
+    ["main menu"] = {"very beginning", NOT_A_STATE},
 
     ["very beginning"] = {"initial 1"},
     ["initial 1"] = {"initial 2"},
@@ -89,15 +88,21 @@ end
 function get_new_state(current_state, key_pressed)
 	local next_state = current_state
 	local switch_res = STORY_SWITCH[current_state]
-    if not switch_res == nil
+    if not switch_res ~= nil
 		and DIGITS[key_pressed]
-		and #switch_res > tonumber(key_pressed)
+		and #switch_res >= tonumber(key_pressed)
 		then
 		next_state = one_time_state_check(current_state, key_pressed)
 	end
 	return next_state
 end
 
-function get_state_text(state_name)
+function get_text_dict()
+    -- Return: Dictionary(string state_name, tuple[string, array[string]] text_and_then_choices)
+    local result = {}
+    for i in pairs(STORY_SWITCH) do
 
+    end
 end
+
+print(get_text_dict())
