@@ -103,5 +103,5 @@ luac.out
 ##########
 
 # kb = Knowledge Base. Game text is NOT presented inside this repo.
-kb/rus/
-kb/eng/
+kb/rus.txt
+kb/eng.txt

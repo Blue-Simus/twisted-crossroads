@@ -23,10 +23,10 @@ STORY_SWITCH = {
     ["castle corridor 1t"] = {"corridor of castle"},
 
     ["corridor of castle"] = {
-		"throne door", 
-		"ruling cabinet", 
-		"castle library", 
-		"castle forge", 
+		"throne door",
+		"ruling cabinet",
+		"castle library",
+		"castle forge",
 		"castle exit 1"},
     ["throne door"] = {"corridor of castle"},
     ["ruling cabinet"] = {"corridor of castle"},
@@ -43,10 +43,10 @@ STORY_SWITCH = {
     ["dark forest"] = {"dark swamp", "dark settlement"},
     ["dark swamp"] = {"dark settlement", "dark forest"},
     ["dark settlement"] = {"dark forest", "dark swamp", "dark settlement save"},
-    
+
     ["dark settlement save 1t 1"] = {"dark settlement save 1t 2"},
     ["dark settlement save 1t 2"] = {"dark settlement save"},
-    ["dark settlement save"] = {"dark settlement"}	
+    ["dark settlement save"] = {"dark settlement"}
 }
 
 SWITCH_CONDITIONS = {
@@ -63,37 +63,41 @@ SAFEHOUSE_CHOICES = {
         "4) [Назад]"}
 
 DIGITS = {
-    ["1"]=true, 
-    ["2"]=true, 
-    ["3"]=true, 
-    ["4"]=true, 
-    ["5"]=true, 
-    ["6"]=true, 
-    ["7"]=true, 
-    ["8"]=true, 
-    ["9"]=true, 
+    ["1"]=true,
+    ["2"]=true,
+    ["3"]=true,
+    ["4"]=true,
+    ["5"]=true,
+    ["6"]=true,
+    ["7"]=true,
+    ["8"]=true,
+    ["9"]=true,
     ["0"]=true}
 
 function one_time_state_check(current_state, key_pressed)
 	local next_state = STORY_SWITCH[current_state][tonumber(key_pressed)]
-	if current_state == "dark settlement"  
+	if current_state == "dark settlement"
 		and key_pressed == "3"
-		and not SWITCH_CONDITIONS['brunhilda safehouse met'] 
+		and not SWITCH_CONDITIONS['brunhilda safehouse met']
 		then
 		next_state = "dark settlement save 1t 1"
 		SWITCH_CONDITIONS['brunhilda safehouse met'] = true
 	end
-	return next_state	
+	return next_state
 end
 
 function get_new_state(current_state, key_pressed)
 	local next_state = current_state
 	local switch_res = STORY_SWITCH[current_state]
-    if not switch_res == nil 
-		and DIGITS[key_pressed] 
+    if not switch_res == nil
+		and DIGITS[key_pressed]
 		and #switch_res > tonumber(key_pressed)
 		then
-		next_state = one_time_state_check(current_state, key_pressed) 
+		next_state = one_time_state_check(current_state, key_pressed)
 	end
 	return next_state
+end
+
+function get_state_text(state_name)
+
 end
