@@ -52,15 +52,6 @@ SWITCH_CONDITIONS = {
 	["brunhilda safehouse met"] = false
 }
 
-MAIN_MENU_CHOICES = {"1) Начать.", "2) Продолжить.", "3) Выход."}
-MOVE_ON = {"1) Вперёд."}
-SAFEHOUSE_CHOICES = {
-		"0) [Выйти в главное меню]",
-        "1) [Сохранить]",
-        "2) [Статус]",
-        "3) [Осмотр]",
-        "4) [Назад]"}
-
 DIGITS = {
     ["1"]=true,
     ["2"]=true,
@@ -97,12 +88,30 @@ function get_new_state(current_state, key_pressed)
 	return next_state
 end
 
-function get_text_dict()
-    -- Return: Dictionary(string state_name, tuple[string, array[string]] text_and_then_choices)
+function get_all_text(filename)
+    --  Array(
+    --      Tuple(
+    --          string state_name,
+    --          string text,
+    --          string choices
+    --      )
+    --  )
+    -- * [text] has linebreaks between paragraphs.
+    -- * [choices] has linebreaks between choices.
+    -- * Empty lines are not ignored inside Lua code.
+    --
+    local marked_text = {}
+    local file = io.open(filename, "r")
+    for line in file:lines() do
+        print(line)
+    end
+    file:close()
+
     local result = {}
     for i in pairs(STORY_SWITCH) do
 
     end
+    return result
 end
 
-print(get_text_dict())
+get_all_text("kb/rus.txt")
